@@ -1,4 +1,5 @@
 {
     "name": "CJM.BarracudaInference.YOLOX.Editor",
     "references": [],
-    "includePlatfor
+    "includePlatforms": [
+        "Edit
