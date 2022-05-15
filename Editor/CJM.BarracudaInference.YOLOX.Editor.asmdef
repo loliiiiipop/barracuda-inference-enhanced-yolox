@@ -4,4 +4,4 @@
     "includePlatforms": [
         "Editor"
     ],
-    
+    "excludePlatforms":
