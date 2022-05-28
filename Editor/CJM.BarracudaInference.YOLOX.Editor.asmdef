@@ -5,4 +5,5 @@
         "Editor"
     ],
     "excludePlatforms": [],
-    "allowUns
+    "allowUnsafeCode": false,
+    
