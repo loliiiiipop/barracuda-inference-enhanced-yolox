@@ -8,4 +8,5 @@
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "auto
+    "autoReferenced": true,
+ 
