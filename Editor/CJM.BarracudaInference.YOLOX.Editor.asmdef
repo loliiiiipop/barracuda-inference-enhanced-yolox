@@ -11,4 +11,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngine
+    "noEngineReferences": false
+}
