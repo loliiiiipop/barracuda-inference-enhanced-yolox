@@ -10,4 +10,5 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDef
+    "versionDefines": [],
+    "noEngine
