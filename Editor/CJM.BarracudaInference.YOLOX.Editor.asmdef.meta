@@ -5,4 +5,5 @@ PluginImporter:
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
-  isPreload
+  isPreloaded: 0
+  isOverridable: 0
