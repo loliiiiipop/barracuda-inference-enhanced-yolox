@@ -12,4 +12,6 @@ PluginImporter:
   platformData:
   - first:
       Any:
-    second
+    second:
+      enabled: 0
+   
