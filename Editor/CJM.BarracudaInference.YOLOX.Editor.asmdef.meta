@@ -15,4 +15,6 @@ PluginImporter:
     second:
       enabled: 0
       settings: {}
-  - fi
+  - first:
+      Editor:
+    
