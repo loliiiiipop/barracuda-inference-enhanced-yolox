@@ -17,4 +17,5 @@ PluginImporter:
       settings: {}
   - first:
       Editor:
-    
+    second:
+      enable
