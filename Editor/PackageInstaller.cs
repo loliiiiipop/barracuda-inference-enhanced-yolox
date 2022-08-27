@@ -40,3 +40,24 @@ namespace CJM.BarracudaInference.YOLOX
         [InitializeOnLoadMethod]
         public static void InstallDependencies()
         {
+            // Read the package JSON file
+            packagesToInstall = ReadPackageJson().packages;
+            // Initialize the current package index
+            currentPackageIndex = 0;
+            // Start installing the packages
+            InstallNextPackage();
+        }
+
+        // Method to install the next package in the list
+        private static void InstallNextPackage()
+        {
+            // Iterate through package list
+            if (currentPackageIndex < packagesToInstall.Count)
+            {
+                PackageData packageData = packagesToInstall[currentPackageIndex];
+
+                // Check if the package is already installed
+                if (!IsPackageInstalled(packageData.packageName))
+                {
+                    // Attempt to install package
+                    addRequest = Client.Add(packageData.packageUrl);
