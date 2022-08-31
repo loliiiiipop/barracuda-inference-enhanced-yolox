@@ -61,3 +61,27 @@ namespace CJM.BarracudaInference.YOLOX
                 {
                     // Attempt to install package
                     addRequest = Client.Add(packageData.packageUrl);
+                    EditorApplication.update += PackageInstallationProgress;
+                }
+                else
+                {
+                    // Increment the current package index
+                    currentPackageIndex++;
+                    // Recursively call InstallNextPackage
+                    InstallNextPackage();
+                }
+            }
+        }
+
+        // Method to monitor the progress of package installation
+        private static void PackageInstallationProgress()
+        {
+            if (addRequest.IsCompleted)
+            {
+                // Log whether the package installation was successful
+                if (addRequest.Status == StatusCode.Success)
+                {
+                    UnityEngine.Debug.Log($"Successfully installed: {addRequest.Result.packageId}");
+                }
+                else if (addRequest.Status >= StatusCode.Failure)
+                {
