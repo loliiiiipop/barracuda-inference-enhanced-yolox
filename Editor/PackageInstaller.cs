@@ -85,3 +85,26 @@ namespace CJM.BarracudaInference.YOLOX
                 }
                 else if (addRequest.Status >= StatusCode.Failure)
                 {
+                    UnityEngine.Debug.LogError($"Failed to install package: {addRequest.Error.message}");
+                }
+
+                // Unregister the method from the EditorApplication.update 
+                EditorApplication.update -= PackageInstallationProgress;
+                // Increment the current package index
+                currentPackageIndex++;
+                // Install the next package in the list
+                InstallNextPackage();
+            }
+        }
+
+        // Method to check if a package is already installed
+        private static bool IsPackageInstalled(string packageName)
+        {
+            // List the installed packages
+            var listRequest = Client.List(true, false);
+            while (!listRequest.IsCompleted) { }
+
+            if (listRequest.Status == StatusCode.Success)
+            {
+                // Check if the package is already installed
+                return listRequest.Result.Any(package => package.name == packageName);
