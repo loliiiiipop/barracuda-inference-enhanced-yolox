@@ -108,3 +108,26 @@ namespace CJM.BarracudaInference.YOLOX
             {
                 // Check if the package is already installed
                 return listRequest.Result.Any(package => package.name == packageName);
+            }
+            else
+            {
+                UnityEngine.Debug.LogError($"Failed to list packages: {listRequest.Error.message}");
+            }
+
+            return false;
+        }
+
+        // Method to read the JSON file and return a PackageList object
+        private static PackageList ReadPackageJson()
+        {
+            // Convert the PackagesJSONGUID to an asset path
+            string assetPath = AssetDatabase.GUIDToAssetPath(PackagesJSONGUID);
+            // Read the JSON file content as a string
+            string jsonString = File.ReadAllText(assetPath);
+            // Deserialize the JSON string into a PackageList object
+            return JsonUtility.FromJson<PackageList>(jsonString);
+        }
+
+
+    }
+}
