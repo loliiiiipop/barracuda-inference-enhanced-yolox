@@ -1,4 +1,5 @@
 {
     "name": "CJM.BarracudaInference.YOLOX",
     "references": [
-        "Unity.Barracud
+        "Unity.Barracuda",
+        "CJM.Barrac
