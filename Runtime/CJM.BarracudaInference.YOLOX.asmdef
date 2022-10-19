@@ -3,4 +3,5 @@
     "references": [
         "Unity.Barracuda",
         "CJM.BarracudaInference",
-        "CJM.YOLO
+        "CJM.YOLOXUtils",
+        
