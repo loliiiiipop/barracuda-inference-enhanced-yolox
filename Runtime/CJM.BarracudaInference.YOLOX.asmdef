@@ -4,4 +4,5 @@
         "Unity.Barracuda",
         "CJM.BarracudaInference",
         "CJM.YOLOXUtils",
-        
+        "CJM.BBox2DToolkit"
+   
