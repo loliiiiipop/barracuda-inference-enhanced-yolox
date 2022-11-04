@@ -9,4 +9,5 @@
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": fa
+    "allowUnsafeCode": false,
+    "overrideRefer
