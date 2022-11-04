@@ -10,4 +10,5 @@
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideRefer
+    "overrideReferences": false,
+    "preco
