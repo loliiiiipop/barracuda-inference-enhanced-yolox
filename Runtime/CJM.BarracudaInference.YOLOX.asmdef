@@ -12,3 +12,4 @@
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
+    "autoReferenced": true,
