@@ -8,4 +8,4 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   isExplicitlyReferenced: 0
-  va
+  validateReferences: 1
