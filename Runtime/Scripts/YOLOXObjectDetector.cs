@@ -33,3 +33,34 @@ namespace CJM.BarracudaInference.YOLOX
         private int frameCounter = 0;
 
         // Indicates if the system supports asynchronous GPU readback
+        private bool supportsAsyncGPUReadback = false;
+
+        // Stride values used by the YOLOX model
+        private static readonly int[] Strides = { 8, 16, 32 };
+
+        // Number of fields in each bounding box
+        private const int NumBBoxFields = 5;
+
+        // Layer names for the Transpose, Flatten, and TransposeOutput operations
+        private const string TransposeLayer = "transpose";
+        private const string FlattenLayer = "flatten";
+        private const string TransposeOutputLayer = "transposeOutput";
+        private string defaultOutputLayer;
+
+        // Texture formats for output processing
+        private TextureFormat textureFormat = TextureFormat.RHalf;
+        private RenderTextureFormat renderTextureFormat = RenderTextureFormat.RHalf;
+
+        // Serializable classes to store color map information from JSON
+        [System.Serializable]
+        class Colormap
+        {
+            public string label;
+            public List<float> color;
+        }
+
+        [System.Serializable]
+        class ColormapList
+        {
+            public List<Colormap> items;
+        }
