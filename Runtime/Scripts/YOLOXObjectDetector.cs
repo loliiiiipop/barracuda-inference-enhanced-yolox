@@ -64,3 +64,34 @@ namespace CJM.BarracudaInference.YOLOX
         {
             public List<Colormap> items;
         }
+
+        // List to store label and color pairs for each class
+        private List<(string, Color)> colormapList = new List<(string, Color)>();
+
+        // Output textures for processing on CPU and GPU
+        private Texture2D outputTextureCPU;
+        private RenderTexture outputTextureGPU;
+
+        // List to store grid and stride information for the YOLOX model
+        private List<GridCoordinateAndStride> gridCoordsAndStrides = new List<GridCoordinateAndStride>();
+
+        // Length of the proposal array for YOLOX output
+        private int proposalLength;
+
+        // Called at the start of the script
+        protected override void Start()
+        {
+            base.Start();
+            CheckAsyncGPUReadbackSupport(); // Check if async GPU readback is supported
+            LoadColorMapList(); // Load colormap information from JSON file
+            CreateOutputTexture(1, 1); // Initialize output texture
+
+            proposalLength = colormapList.Count + NumBBoxFields; // Calculate proposal length
+        }
+
+        // Check if the system supports async GPU readback
+        public bool CheckAsyncGPUReadbackSupport()
+        {
+            supportsAsyncGPUReadback = SystemInfo.supportsAsyncGPUReadback && supportsAsyncGPUReadback;
+            return supportsAsyncGPUReadback;
+        }
