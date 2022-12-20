@@ -95,3 +95,31 @@ namespace CJM.BarracudaInference.YOLOX
             supportsAsyncGPUReadback = SystemInfo.supportsAsyncGPUReadback && supportsAsyncGPUReadback;
             return supportsAsyncGPUReadback;
         }
+
+        // Load and prepare the YOLOX model
+        protected override void LoadAndPrepareModel()
+        {
+            base.LoadAndPrepareModel();
+
+            defaultOutputLayer = modelBuilder.model.outputs[0];
+            WorkerFactory.Type bestType = WorkerFactory.ValidateType(WorkerFactory.Type.Auto);
+            bool supportsComputeBackend = bestType == WorkerFactory.Type.ComputePrecompiled;
+
+            // Set worker type for WebGL
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                workerType = WorkerFactory.Type.PixelShader;
+            }
+
+            // Apply transpose operation on the output layer
+            modelBuilder.Transpose(TransposeLayer, defaultOutputLayer, new[] { 0, 3, 2, 1, });
+            defaultOutputLayer = TransposeLayer;
+
+            // Apply Flatten and TransposeOutput operations if supported
+            if (supportsComputeBackend && (workerType != WorkerFactory.Type.PixelShader))
+            {
+                modelBuilder.Flatten(FlattenLayer, TransposeLayer);
+                modelBuilder.Transpose(TransposeOutputLayer, FlattenLayer, new[] { 0, 1, 3, 2 });
+                modelBuilder.Output(TransposeLayer);
+                defaultOutputLayer = TransposeOutputLayer;
+            }
