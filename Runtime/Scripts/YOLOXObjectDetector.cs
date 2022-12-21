@@ -123,3 +123,32 @@ namespace CJM.BarracudaInference.YOLOX
                 modelBuilder.Output(TransposeLayer);
                 defaultOutputLayer = TransposeOutputLayer;
             }
+        }
+
+        /// <summary>
+        /// Initialize the Barracuda engine
+        /// <summary>
+        protected override void InitializeEngine()
+        {
+            base.InitializeEngine();
+
+            // Check if async GPU readback is supported by the engine
+            supportsAsyncGPUReadback = engine.Summary().Contains("Unity.Barracuda.ComputeVarsWithSharedModel");
+        }
+
+        /// <summary>
+        /// Load the color map list from the JSON file
+        /// <summary>
+        private void LoadColorMapList()
+        {
+            if (IsColorMapListJsonNullOrEmpty())
+            {
+                Debug.LogError("Class labels JSON is null or empty.");
+                return;
+            }
+
+            ColormapList colormapObj = DeserializeColorMapList(colormapFile.text);
+            UpdateColorMap(colormapObj);
+        }
+
+        /// <summary>
