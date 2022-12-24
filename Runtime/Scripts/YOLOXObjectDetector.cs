@@ -152,3 +152,22 @@ namespace CJM.BarracudaInference.YOLOX
         }
 
         /// <summary>
+        /// Check if the color map JSON file is null or empty
+        /// <summary>
+        private bool IsColorMapListJsonNullOrEmpty()
+        {
+            return colormapFile == null || string.IsNullOrWhiteSpace(colormapFile.text);
+        }
+
+        /// <summary>
+        /// Deserialize the color map list from the JSON string
+        /// <summary>
+        private ColormapList DeserializeColorMapList(string json)
+        {
+            try
+            {
+                return JsonUtility.FromJson<ColormapList>(json);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to deserialize class labels JSON: {ex.Message}");
