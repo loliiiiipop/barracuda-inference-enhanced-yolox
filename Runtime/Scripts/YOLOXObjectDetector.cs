@@ -171,3 +171,26 @@ namespace CJM.BarracudaInference.YOLOX
             catch (Exception ex)
             {
                 Debug.LogError($"Failed to deserialize class labels JSON: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Update the color map list with deserialized data
+        /// <summary>
+        private void UpdateColorMap(ColormapList colormapObj)
+        {
+            if (colormapObj == null)
+            {
+                return;
+            }
+
+            // Add label and color pairs to the colormap list
+            foreach (Colormap colormap in colormapObj.items)
+            {
+                Color color = new Color(colormap.color[0], colormap.color[1], colormap.color[2]);
+                colormapList.Add((colormap.label, color));
+            }
+        }
+
+        /// <summary>
