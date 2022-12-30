@@ -194,3 +194,30 @@ namespace CJM.BarracudaInference.YOLOX
         }
 
         /// <summary>
+        /// Create an output texture with the specified width and height.
+        /// </summary>
+        private void CreateOutputTexture(int width, int height)
+        {
+            outputTextureCPU = new Texture2D(width, height, textureFormat, false);
+        }
+
+        /// <summary>
+        /// Execute the YOLOX model with the given input texture.
+        /// </summary>
+        public void ExecuteModel(RenderTexture inputTexture)
+        {
+            using (Tensor input = new Tensor(inputTexture, channels: 3))
+            {
+                base.ExecuteModel(input);
+            }
+
+            // Update grid_strides if necessary
+            if (engine.PeekOutput(defaultOutputLayer).length / proposalLength != gridCoordsAndStrides.Count)
+            {
+                gridCoordsAndStrides = YOLOXUtility.GenerateGridCoordinatesWithStrides(Strides, inputTexture.height, inputTexture.width);
+            }
+        }
+
+        /// <summary>
+        /// Process the output array from the YOLOX model, applying Non-Maximum Suppression (NMS) and
+        /// returning an array of BBox2DInfo objects with class labels and colors.
