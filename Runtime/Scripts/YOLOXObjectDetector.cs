@@ -221,3 +221,17 @@ namespace CJM.BarracudaInference.YOLOX
         /// <summary>
         /// Process the output array from the YOLOX model, applying Non-Maximum Suppression (NMS) and
         /// returning an array of BBox2DInfo objects with class labels and colors.
+        /// </summary>
+        /// <param name="outputArray">The output array from the YOLOX model</param>
+        /// <param name="confidenceThreshold">The minimum confidence score for a bounding box to be considered</param>
+        /// <param name="nms_threshold">The threshold for Non-Maximum Suppression (NMS)</param>
+        /// <returns>An array of BBox2DInfo objects containing the filtered bounding boxes, class labels, and colors</returns>
+        public BBox2DInfo[] ProcessOutput(float[] outputArray, float confidenceThreshold = 0.5f, float nms_threshold = 0.45f)
+        {
+            // Generate bounding box proposals from the output array
+            List<BBox2D> proposals = YOLOXUtility.GenerateBoundingBoxProposals(outputArray, gridCoordsAndStrides, colormapList.Count, NumBBoxFields, confidenceThreshold);
+
+            // Apply Non-Maximum Suppression (NMS) to the proposals
+            List<int> proposal_indices = BBox2DUtility.NMSSortedBoxes(proposals, nms_threshold);
+
+            // Create an array of BBox2DInfo objects containing the filtered bounding boxes, class labels, and colors
