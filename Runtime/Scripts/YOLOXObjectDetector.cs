@@ -235,3 +235,25 @@ namespace CJM.BarracudaInference.YOLOX
             List<int> proposal_indices = BBox2DUtility.NMSSortedBoxes(proposals, nms_threshold);
 
             // Create an array of BBox2DInfo objects containing the filtered bounding boxes, class labels, and colors
+            return proposal_indices
+                .Select(index => proposals[index])
+                .Select(bbox => new BBox2DInfo(bbox, colormapList[bbox.index].Item1, colormapList[bbox.index].Item2))
+                .ToArray();
+        }
+
+        /// <summary>
+        /// Copy the model output to a float array.
+        /// </summary>
+        public float[] CopyOutputToArray()
+        {
+            using (Tensor output = engine.PeekOutput(defaultOutputLayer))
+            {
+                if (workerType == WorkerFactory.Type.PixelShader)
+                {
+                    frameCounter++;
+                    if (frameCounter % pixelShaderUnloadInterval == 0)
+                    {
+                        Resources.UnloadUnusedAssets();
+                        frameCounter = 0;
+                    }
+                }
