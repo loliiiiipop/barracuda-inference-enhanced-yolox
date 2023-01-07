@@ -257,3 +257,22 @@ namespace CJM.BarracudaInference.YOLOX
                         frameCounter = 0;
                     }
                 }
+                return output.data.Download(output.shape);
+            }
+        }
+
+        /// <summary>
+        /// Copy the model output to a texture.
+        /// </summary>
+        public void CopyOutputToTexture()
+        {
+            using (Tensor output = engine.PeekOutput(TransposeLayer))
+            {
+                if (output.width != outputTextureCPU.width || output.height != outputTextureCPU.height)
+                {
+                    CreateOutputTexture(output.width, output.height);
+                    outputTextureGPU = RenderTexture.GetTemporary(output.width, output.height, 0, renderTextureFormat);
+                }
+                output.ToRenderTexture(outputTextureGPU);
+            }
+        }
