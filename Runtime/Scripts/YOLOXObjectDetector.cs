@@ -276,3 +276,33 @@ namespace CJM.BarracudaInference.YOLOX
                 output.ToRenderTexture(outputTextureGPU);
             }
         }
+
+        /// <summary>
+        /// Copy the model output using async GPU readback. If not supported, defaults to synchronous readback.
+        /// </summary>
+        public float[] CopyOutputWithAsyncReadback()
+        {
+            if (!supportsAsyncGPUReadback)
+            {
+                Debug.Log("Async GPU Readback not supported. Defaulting to synchronous readback");
+                return CopyOutputToArray();
+            }
+
+            CopyOutputToTexture();
+
+            AsyncGPUReadback.Request(outputTextureGPU, 0, textureFormat, OnCompleteReadback);
+
+            Color[] outputColors = outputTextureCPU.GetPixels();
+            float[] outputArray = outputColors.Select(color => color.r).Reverse().ToArray();
+
+            // Reverse the order of each proposal in the output array
+            for (int i = 0; i < outputArray.Length; i += proposalLength)
+            {
+                Array.Reverse(outputArray, i, proposalLength);
+            }
+
+            return outputArray;
+        }
+
+        /// <summary>
+        /// Crop input dimensions to be divisible by the maximum stride.
