@@ -306,3 +306,26 @@ namespace CJM.BarracudaInference.YOLOX
 
         /// <summary>
         /// Crop input dimensions to be divisible by the maximum stride.
+        /// </summary>
+        public Vector2Int CropInputDims(Vector2Int inputDims)
+        {
+            inputDims[0] -= inputDims[0] % Strides.Max();
+            inputDims[1] -= inputDims[1] % Strides.Max();
+
+            return inputDims;
+        }
+
+        /// <summary>
+        /// Handle the completion of an async GPU readback request.
+        /// </summary>
+        private void OnCompleteReadback(AsyncGPUReadbackRequest request)
+        {
+            if (request.hasError)
+            {
+                Debug.Log("GPU readback error detected.");
+                return;
+            }
+
+            if (outputTextureCPU != null)
+            {
+                try
