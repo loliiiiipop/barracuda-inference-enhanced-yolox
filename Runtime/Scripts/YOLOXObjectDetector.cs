@@ -329,3 +329,24 @@ namespace CJM.BarracudaInference.YOLOX
             if (outputTextureCPU != null)
             {
                 try
+                {
+                    // Load readback data into the output texture and apply changes
+                    outputTextureCPU.LoadRawTextureData(request.GetData<uint>());
+                    outputTextureCPU.Apply();
+                }
+                catch (UnityException ex)
+                {
+                    if (ex.Message.Contains("LoadRawTextureData: not enough data provided (will result in overread)."))
+                    {
+                        Debug.Log("Updating input data size to match the texture size.");
+                    }
+                    else
+                    {
+                        Debug.LogError($"Unexpected UnityException: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clean up resources when the script is disabled.
