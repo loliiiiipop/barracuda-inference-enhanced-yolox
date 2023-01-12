@@ -350,3 +350,14 @@ namespace CJM.BarracudaInference.YOLOX
 
         /// <summary>
         /// Clean up resources when the script is disabled.
+        /// </summary>
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            // Release the temporary render texture
+            RenderTexture.ReleaseTemporary(outputTextureGPU);
+        }
+
+    }
+}
+#endif
