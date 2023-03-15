@@ -6,4 +6,5 @@
     "description": "This package extends the functionality of the barracuda-inference-base package to perform object detection using YOLOX models.",
     "keywords": [
         "unity",
-        "barracud
+        "barracuda",
+        "inference"
