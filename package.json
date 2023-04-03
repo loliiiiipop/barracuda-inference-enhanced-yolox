@@ -22,4 +22,4 @@
         "url": "https://github.com/cj-mills/unity-barracuda-inference-yolox.git"
     },
     "dependencies": {
-        
+        "com.unity.barracuda": "
