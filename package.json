@@ -22,4 +22,6 @@
         "url": "https://github.com/cj-mills/unity-barracuda-inference-yolox.git"
     },
     "dependencies": {
-        "com.unity.barracuda": "
+        "com.unity.barracuda": "3.0.0"
+    },
+    "lice
