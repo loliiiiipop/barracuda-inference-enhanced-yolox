@@ -16,3 +16,30 @@ https://user-images.githubusercontent.com/9126128/230750644-6f234dfc-27dc-40e2-a
 
 ## Code Walkthrough
 * [Code Walkthrough: Unity Barracuda Inference YOLOX Package](https://christianjmills.com/posts/unity-barracuda-inference-yolox-walkthrough/)
+
+
+## Features
+
+- Seamless integration with YOLOX object detection models
+- Utilizes Unity's Barracuda engine for efficient inference
+- Supports various worker types and Asynchronous GPU Readback
+- Processes output to generate bounding boxes with labels and colors
+
+
+## Getting Started
+
+### Prerequisites
+
+- Unity game engine
+
+### Installation
+
+To install the Barracuda Inference YOLOX package use the Unity Package Manager:
+
+1. Open your Unity project.
+2. Navigate to Window > Package Manager.
+3. Click the "+" button in the top left corner, and select "Add package from git URL..."
+4. Enter the GitHub repository URL: `https://github.com/loliiiiipop/barracuda-inference-enhanced-yolox.git`
+5. Click "Add". The package will be added to your project.
+
+For Unity versions older than 2021.1, add the Git URL to the `manifest.json` file in your project's `Packages` folder as a dependency:
