@@ -43,3 +43,22 @@ To install the Barracuda Inference YOLOX package use the Unity Package Manager:
 5. Click "Add". The package will be added to your project.
 
 For Unity versions older than 2021.1, add the Git URL to the `manifest.json` file in your project's `Packages` folder as a dependency:
+
+```json
+{
+  "dependencies": {
+    "com.cj-mills.barracuda-inference-yolox": "https://github.com/loliiiiipop/barracuda-inference-enhanced-yolox.git",
+    // other dependencies...
+  }
+}
+```
+
+## Train a Custom Model
+
+If you're interested in training a YOLOX model on a personal dataset, refer to my tutorial linked below:
+
+- **[Training YOLOX Models for Real-Time Object Detection in Pytorch](https://christianjmills.com/series/tutorials/pytorch-train-object-detector-yolox-series.html)**
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](Documentation~/LICENSE) file for details.
